@@ -37,10 +37,7 @@ int BitInputStream::readByte()
 
 int BitInputStream::readInt()
 {
-   char* buffer = new char[ sizeof(int) + 1 ];
-   buffer[ sizeof(int) ] = '\0';
-   in.read( buffer, sizeof(int) );
-   int num = stoi( string( buffer ) );
-   delete[] buffer;
+   int num = 0;
+   in.read( reinterpret_cast<char* const>( &num ), sizeof( num ) );
    return num;
 }

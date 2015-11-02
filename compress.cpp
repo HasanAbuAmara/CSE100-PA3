@@ -23,7 +23,7 @@ int main( int argc, char* argv[] )
    in.open( argv[1], ios::binary );
    if( errno )
    {
-      cerr << "Error: " << strerror( errno ) << endl;
+      cerr << "Error in " << argv[1] << ": " << strerror( errno ) << endl;
       return -1;
    }
 
@@ -32,7 +32,7 @@ int main( int argc, char* argv[] )
    out.open( argv[2], ios::binary );
    if( errno )
    {
-      cerr << "Error: " << strerror( errno ) << endl;
+      cerr << "Error in " << argv[2] << ": " << strerror( errno ) << endl;
       return -1;
    }
 
@@ -50,7 +50,6 @@ int main( int argc, char* argv[] )
       if( freqs->at( c ) == 0 )
       {
          symCnt++;
-         cout << "Found symbol: " << c << " with ASCII code " << int( c ) << endl;
       }
       freqs->at( c )  += 1;
       msgCnt++;
@@ -88,7 +87,6 @@ int main( int argc, char* argv[] )
       }
       encoderTree->encode( c, *output );
    }
-	cout << "msgCnt: " << msgCnt << ", symCnt: " << symCnt << endl;
    if( ! in2.eof() )
    {
       delete output;

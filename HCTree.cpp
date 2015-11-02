@@ -13,7 +13,7 @@ void HCTree::build( const vector<int>& freqs )
    {
       if ( freqs.at( i ) )
       {
-         HCNode* newNode = new HCNode( freqs.at( i ),char( i ) );
+         HCNode* newNode = new HCNode( freqs.at( i ), char( i ) );
          huffmanForest->push( newNode );
          leaves.at( i ) = newNode;
       }
@@ -27,7 +27,7 @@ void HCTree::build( const vector<int>& freqs )
       huffmanForest->pop();
 
       HCNode* intNode = new HCNode( node1->count + node0->count,
-                                    0 );
+                                    node1->symbol );
 
       intNode->c0 = node0;
       intNode->c1 = node1;
@@ -65,6 +65,25 @@ void HCTree::encodeByte( HCNode* node, BitOutputStream& out ) const
 void HCTree::encode( byte symbol, BitOutputStream& out ) const
 {
    encodeByte( leaves.at( symbol ), out );
+}
+
+int HCTree::decode( BitInputStream& in ) const
+{
+   HCNode* curr = root;
+   while( curr->c0 && curr->c1 )
+   {
+      int bit = in.readBit();
+      if( bit )
+      {
+         curr = curr->c1;
+      }
+      else
+      {
+         curr = curr->c0;
+      }
+   }
+
+   return curr->symbol;
 }
 
 void HCTree::deleteAll( HCNode* node )

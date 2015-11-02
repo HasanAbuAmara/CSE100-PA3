@@ -40,15 +40,13 @@ void BitOutputStream::writeBit( int i )
 
 void BitOutputStream::writeByte( int i )
 {
-   out.put( i );
+   out.put( char( i ) );
    out.flush();
 } 
 
 void BitOutputStream::writeInt( int i )
 {
-   //string s = to_string( i );
    out.write( reinterpret_cast<const char*>( &i ), sizeof( i ) );
-   //out.write( s.c_str(), sizeof( int ) );
    out.flush();
 }
 
