@@ -1,11 +1,8 @@
 #include <iostream>
-#include <fstream>
 #include <vector>
 #include <cerrno>
 #include <cstring>
-#include <string>
 #include "BitOutputStream.hpp"
-#include "HCNode.hpp"
 #include "HCTree.hpp"
 
 using namespace std;
